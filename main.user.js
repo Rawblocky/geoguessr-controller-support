@@ -6,7 +6,7 @@
 // @author       Rawblocky
 // @match        *://*.geoguessr.com/*
 // @run-at       document-start
-// @icon         https://raw.githubusercontent.com/Rawblocky/geoguessr-controller-support/refs/heads/main/icon.png/
+// @icon         https://raw.githubusercontent.com/Rawblocky/geoguessr-controller-support/refs/heads/main/icon.png
 // @grant        unsafeWindow
 // @grant        GM_addStyle
 // @license      MIT
