@@ -27,7 +27,8 @@ You can adjust different settings at the top of the script, as well as their key
 
 # Issues
 
-You are currently unable to pan the map during the results screen
+- "Face North" button only works if you have either "Classic" or "Classic & Modern" compass enabled
+- You are currently unable to pan the map during the results screen
 
 # Troubleshooting
 
