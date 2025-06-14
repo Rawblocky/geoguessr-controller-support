@@ -1,14 +1,25 @@
 # Controller Support for GeoGuessr
 
-Adds basic controller functionality to GeoGuessr, such as being able to move, pan, zoom, control the map, place your guess, and more!
+Adds basic controller functionality to GeoGuessr, such as being able to move, pan, zoom, control the map, place your guess, and more! You're also able to change multiple settings, such as bindings and sensitivity, inside the script's code.
 
-Note that there's no way to control menus inside of the game, as this script is only meant to be used in-game.
+Note that there's no way to control menus when not in a game, as this script is only meant to be used in-game.
 
 # <b>[Install script](https://raw.githubusercontent.com/Rawblocky/geoguessr-controller-support/refs/heads/main/main.user.js)</b>
 
+# Screenshots / videos
+
+(video is low quality due to GitHub 10mb limit)
+
+
+https://github.com/user-attachments/assets/3a570567-da6d-4f1c-b78d-1b52f215ebc0
+
+
+![screenshot1](https://github.com/user-attachments/assets/048c8ce7-e438-49d6-a1a3-651405f44d20)
+![screenshot2](https://github.com/user-attachments/assets/a6a47a1c-c05e-42f6-81ea-c742196fdaa7)
+
 # Disclaimer
 
-This script was written with the intention of playing in single player. I do not recommend using this script in a multiplayer or competitive setting, as this isn't an official way to play GeoGuessr.
+This script was written with the intention of playing in single player. I do not recommend using this script in a multiplayer or competitive setting, as this isn't an official way to play GeoGuessr; use at your own risk! Single player should be fine.
 
 # Settings
 
