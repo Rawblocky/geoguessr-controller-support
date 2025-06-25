@@ -2,7 +2,7 @@
 // @name         Controller Support for GeoGuessr
 // @namespace    https://github.com/rawblocky/geoguessr-controller-support
 // @description  Adds basic controller support for GeoGuessr
-// @version      1.0.0
+// @version      1.0.1
 // @author       Rawblocky
 // @match        *://*.geoguessr.com/*
 // @run-at       document-start
@@ -408,12 +408,6 @@ function setButtonPressedState(index, isPressed) {
 	}
 }
 
-GM_addStyle(`
-	.glyph {
-		filter: drop-shadow(var(--text-shadow));
-}
-`);
-
 let mapPan = [0, 0];
 
 function panCrosshair(deltaX, deltaY) {
@@ -581,7 +575,6 @@ const bindingFunctions = {
 				0.1,
 				1
 			);
-			console.log(cameraZoomMultiplier);
 
 			const position = config.position;
 			const deltaTime = config.deltaTime;
@@ -1145,10 +1138,11 @@ const bindingFunctions = {
 };
 
 let gamepadId;
+let gamepadIndex;
 let gamepadType =
 	(SETTINGS.GLYPH_TYPE == "auto" && "xbox") || SETTINGS.GLYPH_TYPE; // for glyph icons
-function getIsValidGamepad(gamepad) {
-	if (gamepadId && gamepad.id != gamepadId) {
+function getIsValidGamepad(gamepad, index) {
+	if (gamepadId && gamepad.id != gamepadId && index != gamepadIndex) {
 		return false;
 	}
 	if (gamepad.mapping != "standard") {
@@ -1156,23 +1150,43 @@ function getIsValidGamepad(gamepad) {
 	}
 	return true;
 }
-function setGamepad(gamepad) {
+function onGamepadSet() {
+	console.log("Gamepad set to:", gamepadId);
+
+	GM_addStyle(`
+		/* Fix minimap being active at all times on mobile */
+		[class*="guess-map_guessMap__"]:not([class*="guess-map_active__"]) {
+			@media (pointer: coarse) {
+				--height: var(--inactive-height) !important;
+				--width: var(--inactive-width) !important;
+				opacity: 0.5 !important
+			}
+		}
+		/* Glyph styles */
+		.glyph {
+			filter: drop-shadow(var(--text-shadow));
+		}
+	`);
+}
+function setGamepad(gamepad, index) {
 	if (gamepadId) {
 		return;
 	}
 	gamepadId = gamepad.id;
+	gamepadIndex = index;
 	if (SETTINGS.GLYPH_TYPE == "auto") {
-		if (gamepadId.toLowerCase().includes("dual")) {
+		const idLowercase = gamepad.id.toLowerCase();
+		if (idLowercase.includes("dual") || idLowercase.includes("playstation")) {
 			gamepadType = "playStation";
 		}
 	}
-	console.log("Gamepad set to:", gamepadId);
+	onGamepadSet();
 }
 function checkInputs(deltaTime) {
 	const gamepads = navigator.getGamepads();
 	for (let i = 0; i < gamepads.length; i++) {
 		const gamepad = gamepads[i];
-		if (!gamepad || !gamepad.connected || !getIsValidGamepad(gamepad)) {
+		if (!gamepad || !gamepad.connected || !getIsValidGamepad(gamepad, i)) {
 			continue;
 		}
 		// Check buttons
@@ -1181,7 +1195,7 @@ function checkInputs(deltaTime) {
 				setButtonPressedState(index, false);
 				return;
 			}
-			setGamepad(gamepad);
+			setGamepad(gamepad, i);
 			const buttonState = setButtonPressedState(index, true);
 			const buttonId = getButtonIdFromIndex(index);
 			const config = {
@@ -1225,7 +1239,7 @@ function checkInputs(deltaTime) {
 					return;
 				}
 
-				setGamepad(gamepad);
+				setGamepad(gamepad, i);
 				let newPosition = {};
 				const config = {
 					rawPosition: rawPosition,
@@ -1389,10 +1403,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 			constructor(...args) {
 				super(...args);
 				MWGTM_SV = this;
-
-				MWGTM_SV.addListener("pov_changed", () => {
-					// pointCompass();
-				});
 			}
 		};
 
