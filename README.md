@@ -29,6 +29,7 @@ You can adjust different settings at the top of the script, as well as their key
 
 - "Face North" button only works if you have either "Classic" or "Classic & Modern" compass enabled
 - You are currently unable to pan the map during the results screen
+- iOS Safari: Gamepad will sometimes not work until you refresh a couple of times
 
 # Troubleshooting
 
