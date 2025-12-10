@@ -2,7 +2,7 @@
 // @name         Controller Support for GeoGuessr
 // @namespace    https://github.com/rawblocky/geoguessr-controller-support
 // @description  Adds basic controller support for GeoGuessr
-// @version      1.0.1
+// @version      1.0.2
 // @author       Rawblocky
 // @match        *://*.geoguessr.com/*
 // @run-at       document-start
