@@ -1402,7 +1402,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 		) {
 			constructor(...args) {
 				super(...args);
-				console.log(this);
 				if (
 					MWGTM_SV &&
 					getElement("[class*='post-guess-player-spectator_root___']")
