@@ -1402,6 +1402,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
 		) {
 			constructor(...args) {
 				super(...args);
+				console.log(this);
+				if (
+					MWGTM_SV &&
+					getElement("[class*='post-guess-player-spectator_root___']")
+				) {
+					// spectating opponent view; ignore
+					return;
+				}
 				MWGTM_SV = this;
 			}
 		};
@@ -1409,6 +1417,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 		google.maps.Map = class extends google.maps.Map {
 			constructor(...args) {
 				super(...args);
+				if (
+					MWGTM_M &&
+					getElement("[class*='post-guess-player-spectator_root___']")
+				) {
+					// spectating opponent view; ignore
+					return;
+				}
 				MWGTM_M = this;
 			}
 		};
